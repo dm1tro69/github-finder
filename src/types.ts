@@ -36,3 +36,13 @@ type SetLoadingType = {
 }
 
 export type ActionsType = GetType | SetLoadingType | ClearType
+
+type AlertRemoveType = {
+    type: 'REMOVE_ALERT'
+}
+type SetType = {
+    type: 'SET_ALERT'
+    payload?: string
+}
+
+export type AlertType = SetType | AlertRemoveType
