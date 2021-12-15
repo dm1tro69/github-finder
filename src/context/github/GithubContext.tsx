@@ -1,5 +1,6 @@
-import {createContext, ReactNode, useState} from "react";
-import {UsersType} from "../../types";
+import {createContext, ReactNode, useReducer} from "react";
+import {initialStateType, UsersType} from "../../types";
+import githubReducer from "./GithubReducer";
 
 const GithubContext = createContext(null)
 
@@ -13,8 +14,14 @@ type ProviderType = {
 
 
 export const GithubProvider = ({children}: ProviderType) => {
-    const [users, setUsers] = useState<UsersType[]>([])
-    const [loading, setLoading] = useState(true)
+
+    const initialState: initialStateType = {
+        users: [],
+        loading: true
+    }
+
+    const [state, dispatch] = useReducer(githubReducer, initialState)
+
 
     const fetchUsers = async () => {
         const response = await fetch(`${GITHUB_URL}/users`, {
@@ -25,11 +32,15 @@ export const GithubProvider = ({children}: ProviderType) => {
 
         })
         const data = await response.json() as UsersType[]
-        setUsers(data)
-        setLoading(false)
+
+        dispatch({
+            type: 'GET_USERS',
+            payload: data
+        })
+
     }
     // @ts-ignore
-    return <GithubContext.Provider value={{users, loading, fetchUsers}}>
+    return <GithubContext.Provider value={{users: state.users, loading: state.loading, fetchUsers}}>
              {children}
            </GithubContext.Provider>
 

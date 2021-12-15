@@ -18,3 +18,12 @@ export type UsersType = {
     "type":string
     "site_admin": boolean
 }
+export type initialStateType = {
+    users: UsersType[]
+    loading: boolean
+}
+type GetType = {
+    type: 'GET_USERS'
+    payload: UsersType[]
+}
+export type ActionsType = GetType
