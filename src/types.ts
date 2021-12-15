@@ -17,7 +17,9 @@ export type UsersType = {
     "received_events_url": string
     "type":string
     "site_admin": boolean
+    score?: number
 }
+
 export type initialStateType = {
     users: UsersType[]
     loading: boolean
@@ -26,4 +28,11 @@ type GetType = {
     type: 'GET_USERS'
     payload: UsersType[]
 }
-export type ActionsType = GetType
+type ClearType = {
+    type: 'CLEAR_USERS'
+}
+type SetLoadingType = {
+    type: 'SET_LOADING'
+}
+
+export type ActionsType = GetType | SetLoadingType | ClearType

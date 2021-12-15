@@ -7,11 +7,11 @@ import GithubContext from "../../context/github/GithubContext";
 const UserResults = () => {
 
      // @ts-ignore
-    const {users, fetchUsers, loading} = useContext(GithubContext)
+    const {users, searchUsers, loading} = useContext(GithubContext)
 
-    useEffect(() => {
-        fetchUsers()
-    }, [])
+    // useEffect(() => {
+    //     fetchUsers()
+    // }, [])
 
 
     if (!loading){
